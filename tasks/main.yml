@@ -1,0 +1,25 @@
+---
+
+- name: Check jwt-cli version
+  become: false
+  ansible.builtin.shell: 'set -o pipefail && jwt-cli version'
+  args:
+    executable: /bin/bash
+  register: jwtcli_version_client_installed
+  changed_when: false
+  failed_when: false
+  check_mode: false
+
+- name: Check jwt-cli version # noqa command-instead-of-shell
+  ansible.builtin.shell: '/bin/true'
+  changed_when: jwtcli_version_client_installed.stdout != jwtcli_version
+  check_mode: false
+
+- name: Install jwt-cli
+  ansible.builtin.get_url:
+    url: "https://github.com/sgaunet/jwt-cli/releases/download/v{{ jwtcli_version }}/jwt-cli_{{ jwtcli_version }}_{{ jwtcli_os }}_{{ jwtcli_arch }}"
+    dest: "{{ jwtcli_bin_path }}/jwt-cli"
+    mode: "0755"
+  when:
+    - not ansible_check_mode
+    - jwtcli_version != jwtcli_version_client_installed.stdout

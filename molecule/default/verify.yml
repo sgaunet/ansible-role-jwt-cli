@@ -1,0 +1,17 @@
+---
+# This is an example playbook to execute Ansible tests.
+
+- name: Verify
+  hosts: all
+  gather_facts: false
+  tasks:
+    - name: Stat jwt-cli
+      ansible.builtin.stat:
+        path: /usr/local/bin/jwt-cli
+      register: jwtcli_present
+    - name: Check jwt-cli is present
+      ansible.builtin.assert:
+        that:
+          - jwtcli_present.stat.exists
+        fail_msg: "jwt-cli not setup"
+        success_msg: "jwt-cli is setup"

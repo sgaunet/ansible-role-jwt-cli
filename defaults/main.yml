@@ -1,0 +1,8 @@
+---
+
+# "jwtcli" version to install
+jwtcli_version: "1.1.0"
+jwtcli_bin_path: "/usr/local/bin"
+jwtcli_tmp_directory: "{{ lookup('env', 'TMPDIR') | default('/tmp', true) }}"
+jwtcli_os: "linux"
+jwtcli_arch: "amd64"

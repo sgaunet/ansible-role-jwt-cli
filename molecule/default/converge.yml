@@ -1,0 +1,8 @@
+---
+- name: Converge
+  hosts: all
+  become: true
+  tasks:
+    - name: "Include apps.jwt_cli"
+      ansible.builtin.include_role:
+        name: "sgaunet.jwt_cli"

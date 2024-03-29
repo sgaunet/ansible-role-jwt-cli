@@ -1,5 +1,6 @@
 ---
-- hosts: localhost
+- name: Install jwt-cli
+  hosts: localhost
   remote_user: root
   roles:
     - sgaunet.jwt_cli

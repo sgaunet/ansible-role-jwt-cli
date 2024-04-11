@@ -1,5 +1,26 @@
 ---
 
+- name: Retrieve latest release information
+  ansible.builtin.uri:
+    url: https://api.github.com/repos/bvaisvil/zenith/releases/latest
+    return_content: true
+  register: project_info
+  changed_when: false
+  check_mode: false
+
+- name: Override version to setup if latest
+  ansible.builtin.set_fact:
+    jwtcli_version: "{{ project_info.content | from_json | json_query('tag_name') }}"
+  changed_when: false
+  check_mode: false
+  when:
+    - jwtcli_version == "latest"
+
+# - debug:
+#     msg: "{{ project_info.content | from_json | json_query('tag_name') }}"
+
+# pip3 install jmespath
+
 - name: Check jwt-cli version
   become: false
   ansible.builtin.shell: 'set -o pipefail && jwt-cli version'

@@ -12,7 +12,7 @@ None.
 
 Available variables are listed below, along with default values (see `defaults/main.yml`):
 
-    jwtcli_version: "1.1.0"
+    jwtcli_version: "latest"     # Version of jwt-cli to install. Use "latest" to install the latest version.
     jwtcli_bin_path: "/usr/local/bin"
     jwtcli_tmp_directory: "{{ lookup('env', 'TMPDIR') | default('/tmp', true) }}"
     jwtcli_os: "linux"

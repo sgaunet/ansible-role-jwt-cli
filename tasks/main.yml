@@ -2,7 +2,7 @@
 
 - name: Retrieve latest release information
   ansible.builtin.uri:
-    url: https://api.github.com/repos/bvaisvil/zenith/releases/latest
+    url: https://api.github.com/repos/sgaunet/jwt-cli/releases/latest
     return_content: true
   register: project_info
   changed_when: false
@@ -10,7 +10,7 @@
 
 - name: Override version to setup if latest
   ansible.builtin.set_fact:
-    jwtcli_version: "{{ project_info.content | from_json | json_query('tag_name') }}"
+    jwtcli_version: "{{ project_info.content | from_json | json_query('tag_name') | replace('v', '') }}"
   changed_when: false
   check_mode: false
   when:

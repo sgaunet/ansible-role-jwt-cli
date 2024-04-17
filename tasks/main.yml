@@ -40,6 +40,8 @@
   ansible.builtin.get_url:
     url: "https://github.com/sgaunet/jwt-cli/releases/download/v{{ jwtcli_version }}/jwt-cli_{{ jwtcli_version }}_{{ jwtcli_os }}_{{ jwtcli_arch }}"
     dest: "{{ jwtcli_bin_path }}/jwt-cli"
+    # avoid 304
+    force: true
     mode: "0755"
   when:
     - not ansible_check_mode
